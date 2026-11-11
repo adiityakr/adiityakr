@@ -37,7 +37,7 @@
 ### 📊 Contribution Activity
 
 <p align="center">
-  <img src="./assets/tokyo-night-contributions.svg" width="100%" alt="Aditya's Tokyo Night Contributions" />
+  <img src="./assets/dracula-contributions.svg" width="100%" alt="Aditya's Dracula Contributions" />
 </p>
 
 ---

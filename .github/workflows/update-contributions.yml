@@ -1,4 +1,4 @@
-name: Update Tokyo Night Contributions
+name: Update Dracula Contributions
 
 on:
   schedule:
@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Fetch and Generate Tokyo Night SVG
+      - name: Fetch and Generate Dracula SVG
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -32,11 +32,11 @@ jobs:
           weeks = data['data']['user']['contributionsCollection']['contributionCalendar']['weeks']
           total = data['data']['user']['contributionsCollection']['contributionCalendar']['totalContributions']
 
-          c_empty = "#111827"
-          c_lvl1  = "#818cf8"
-          c_lvl2  = "#a855f7"
-          c_lvl3  = "#e879f9"
-          c_lvl4  = "#22d3ee"
+          c_empty = "#191a24"
+          c_lvl1  = "#bd93f9"
+          c_lvl2  = "#ff79c6"
+          c_lvl3  = "#50fa7b"
+          c_lvl4  = "#8be9fd"
 
           def get_color(count):
               if count == 0: return c_empty
@@ -62,18 +62,18 @@ jobs:
                       stroke = f' stroke="{color}" stroke-width="1"'
                   else:
                       glow = ""
-                      stroke = ' stroke="#1f2937" stroke-width="0.5"'
+                      stroke = ' stroke="#282a36" stroke-width="0.5"'
                   svg_rects.append(f'<rect x="{x}" y="{y}" width="{sq_size}" height="{sq_size}" rx="2" fill="{color}"{stroke}{glow}><title>{day["date"]}: {cnt} contributions</title></rect>')
 
           rects_str = "\n  ".join(svg_rects)
 
           svg_content = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 150" width="100%" height="150" fill="none">
-            <rect width="780" height="150" rx="10" fill="#090d16" stroke="#30363d" stroke-width="1"/>
+            <rect width="780" height="150" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
             <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="11">
-              <text x="35" y="24" fill="#a78bfa" font-weight="bold">⚡ ADITYA // TOKYO NIGHT CONTRIBUTIONS</text>
+              <text x="35" y="24" fill="#ff79c6" font-weight="bold">⚡ ADITYA // DRACULA CONTRIBUTIONS</text>
               <text x="745" y="24" fill="#94a3b8" text-anchor="end">{total} contributions in the last year</text>
             </g>
-            <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="9" fill="#64748b">
+            <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="9" fill="#6272a4">
               <text x="12" y="52">Mon</text>
               <text x="12" y="78">Wed</text>
               <text x="12" y="104">Fri</text>
@@ -81,7 +81,7 @@ jobs:
             {rects_str}
             <g transform="translate(605, 133)" font-family="monospace" font-size="9" fill="#94a3b8">
               <text x="-30" y="8">Less</text>
-              <rect x="0" y="0" width="8" height="8" rx="1.5" fill="{c_empty}" stroke="#1f2937" stroke-width="0.5"/>
+              <rect x="0" y="0" width="8" height="8" rx="1.5" fill="{c_empty}" stroke="#282a36" stroke-width="0.5"/>
               <rect x="14" y="0" width="8" height="8" rx="1.5" fill="{c_lvl1}" stroke="{c_lvl1}" filter="drop-shadow(0 0 4px {c_lvl1})"/>
               <rect x="28" y="0" width="8" height="8" rx="1.5" fill="{c_lvl2}" stroke="{c_lvl2}" filter="drop-shadow(0 0 4px {c_lvl2})"/>
               <rect x="42" y="0" width="8" height="8" rx="1.5" fill="{c_lvl3}" stroke="{c_lvl3}" filter="drop-shadow(0 0 4px {c_lvl3})"/>
@@ -90,7 +90,7 @@ jobs:
             </g>
           </svg>"""
 
-          with open('assets/tokyo-night-contributions.svg', 'w') as f:
+          with open('assets/dracula-contributions.svg', 'w') as f:
               f.write(svg_content)
           EOF
 
@@ -98,6 +98,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/tokyo-night-contributions.svg
-          git diff --quiet && git diff --staged --quiet || git commit -m "chore: auto-update tokyo night contribution graph"
+          git add assets/dracula-contributions.svg
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: auto-update dracula contribution graph"
           git push
