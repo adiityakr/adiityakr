@@ -1,0 +1,98 @@
+name: Update Tokyo Night Contributions
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+  workflow_dispatch:
+
+jobs:
+  update-svg:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Fetch and Generate Tokyo Night SVG
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - << 'EOF'
+          import json, subprocess
+
+          cmd = ['gh', 'api', 'graphql', '-f', 'query=query { user(login: "adiityakr") { contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } } } }']
+          res = subprocess.check_output(cmd)
+          data = json.loads(res)
+          weeks = data['data']['user']['contributionsCollection']['contributionCalendar']['weeks']
+          total = data['data']['user']['contributionsCollection']['contributionCalendar']['totalContributions']
+
+          c_empty = "#161b22"
+          c_lvl1  = "#414868"
+          c_lvl2  = "#7aa2f7"
+          c_lvl3  = "#bb9af7"
+          c_lvl4  = "#7dcfff"
+
+          def get_color(count):
+              if count == 0: return c_empty
+              if count <= 2: return c_lvl1
+              if count <= 5: return c_lvl2
+              if count <= 10: return c_lvl3
+              return c_lvl4
+
+          svg_rects = []
+          x_offset = 35
+          y_offset = 35
+          sq_size = 10
+          gap = 3
+
+          for w_idx, week in enumerate(weeks):
+              x = x_offset + w_idx * (sq_size + gap)
+              for d_idx, day in enumerate(week['contributionDays']):
+                  y = y_offset + d_idx * (sq_size + gap)
+                  cnt = day['contributionCount']
+                  color = get_color(cnt)
+                  glow = f' filter="drop-shadow(0 0 3px {color})"' if cnt > 0 else ""
+                  svg_rects.append(f'<rect x="{x}" y="{y}" width="{sq_size}" height="{sq_size}" rx="2" fill="{color}"{glow}><title>{day["date"]}: {cnt} contributions</title></rect>')
+
+          rects_str = "\n  ".join(svg_rects)
+
+          svg_content = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 150" width="100%" height="150" fill="none">
+            <rect width="780" height="150" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+            <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="11">
+              <text x="35" y="24" fill="#a78bfa" font-weight="bold">⚡ ADITYA // TOKYO NIGHT CONTRIBUTIONS</text>
+              <text x="745" y="24" fill="#7d8590" text-anchor="end">{total} contributions in the last year</text>
+            </g>
+            <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="9" fill="#64748b">
+              <text x="12" y="52">Mon</text>
+              <text x="12" y="78">Wed</text>
+              <text x="12" y="104">Fri</text>
+            </g>
+            {rects_str}
+            <g transform="translate(620, 133)" font-family="monospace" font-size="9" fill="#7d8590">
+              <text x="-30" y="8">Less</text>
+              <rect x="0" y="0" width="8" height="8" rx="1.5" fill="{c_empty}"/>
+              <rect x="12" y="0" width="8" height="8" rx="1.5" fill="{c_lvl1}"/>
+              <rect x="24" y="0" width="8" height="8" rx="1.5" fill="{c_lvl2}"/>
+              <rect x="36" y="0" width="8" height="8" rx="1.5" fill="{c_lvl3}"/>
+              <rect x="48" y="0" width="8" height="8" rx="1.5" fill="{c_lvl4}"/>
+              <text x="62" y="8">More</text>
+            </g>
+          </svg>"""
+
+          with open('assets/tokyo-night-contributions.svg', 'w') as f:
+              f.write(svg_content)
+          EOF
+
+      - name: Commit & Push Changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/tokyo-night-contributions.svg
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: auto-update tokyo night contribution graph"
+          git push

@@ -34,6 +34,14 @@
 
 ---
 
+### 📊 Contribution Activity
+
+<p align="center">
+  <img src="./assets/tokyo-night-contributions.svg" width="100%" alt="Aditya's Tokyo Night Contributions" />
+</p>
+
+---
+
 ### 📌 Featured Projects
 
 * **[edgeai-for-beginners](https://github.com/adiityakr/edgeai-for-beginners)** `Jupyter Notebook` / `Python`  
