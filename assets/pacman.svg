@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 120" width="100%" height="120" fill="none">
+  <style>
+    @keyframes movePacman {
+      0% { transform: translateX(0px); }
+      49% { transform: translateX(580px); }
+      50% { transform: translateX(580px) scaleX(-1); }
+      99% { transform: translateX(0px) scaleX(-1); }
+      100% { transform: translateX(0px); }
+    }
+    @keyframes chompTop {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-35deg); }
+    }
+    @keyframes chompBottom {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(35deg); }
+    }
+    .pacman-group {
+      animation: movePacman 10s linear infinite;
+    }
+    .top-jaw {
+      animation: chompTop 0.35s infinite linear;
+      transform-origin: 40px 60px;
+    }
+    .bottom-jaw {
+      animation: chompBottom 0.35s infinite linear;
+      transform-origin: 40px 60px;
+    }
+  </style>
+
+  <!-- Container Box -->
+  <rect width="800" height="120" rx="10" fill="#090d16" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- Grid Dots (Contribution pellets) -->
+  <g fill="#26a641" opacity="0.8">
+    <circle cx="100" cy="60" r="4.5" />
+    <circle cx="140" cy="60" r="4.5" />
+    <circle cx="180" cy="60" r="4.5" fill="#39d353" />
+    <circle cx="220" cy="60" r="4.5" />
+    <circle cx="260" cy="60" r="4.5" fill="#006d32" />
+    <circle cx="300" cy="60" r="4.5" fill="#39d353" />
+    <circle cx="340" cy="60" r="4.5" />
+    <circle cx="380" cy="60" r="4.5" fill="#26a641" />
+    <circle cx="420" cy="60" r="4.5" />
+    <circle cx="460" cy="60" r="4.5" fill="#39d353" />
+    <circle cx="500" cy="60" r="4.5" />
+    <circle cx="540" cy="60" r="4.5" fill="#006d32" />
+    <circle cx="580" cy="60" r="4.5" fill="#39d353" />
+    <circle cx="620" cy="60" r="4.5" />
+    <circle cx="660" cy="60" r="4.5" fill="#26a641" />
+    <circle cx="700" cy="60" r="4.5" />
+  </g>
+
+  <!-- Ghosts -->
+  <g transform="translate(40, 42)">
+    <!-- Red Ghost (Blinky) -->
+    <path d="M0,18 C0,8 8,0 18,0 C28,0 36,8 36,18 L36,36 L30,30 L24,36 L18,30 L12,36 L6,30 L0,36 Z" fill="#ef4444"/>
+    <circle cx="12" cy="14" r="5" fill="#ffffff"/>
+    <circle cx="24" cy="14" r="5" fill="#ffffff"/>
+    <circle cx="14" cy="14" r="2.5" fill="#2563eb"/>
+    <circle cx="26" cy="14" r="2.5" fill="#2563eb"/>
+  </g>
+
+  <g transform="translate(85, 42)">
+    <!-- Cyan Ghost (Inky) -->
+    <path d="M0,18 C0,8 8,0 18,0 C28,0 36,8 36,18 L36,36 L30,30 L24,36 L18,30 L12,36 L6,30 L0,36 Z" fill="#06b6d4"/>
+    <circle cx="12" cy="14" r="5" fill="#ffffff"/>
+    <circle cx="24" cy="14" r="5" fill="#ffffff"/>
+    <circle cx="14" cy="14" r="2.5" fill="#2563eb"/>
+    <circle cx="26" cy="14" r="2.5" fill="#2563eb"/>
+  </g>
+
+  <!-- Pac-Man Group -->
+  <g class="pacman-group" transform="translate(130, 0)">
+    <!-- Top Jaw -->
+    <path class="top-jaw" d="M 40,60 L 68,32 A 28,28 0 0,0 12,60 Z" fill="#facc15" filter="drop-shadow(0 0 6px rgba(250, 204, 21, 0.6))"/>
+    <!-- Bottom Jaw -->
+    <path class="bottom-jaw" d="M 40,60 L 12,60 A 28,28 0 0,0 68,88 Z" fill="#facc15" filter="drop-shadow(0 0 6px rgba(250, 204, 21, 0.6))"/>
+    <!-- Eye -->
+    <circle cx="36" cy="46" r="3" fill="#090d16"/>
+  </g>
+
+  <!-- Title / Label -->
+  <text x="780" y="22" fill="#64748b" font-size="10" font-family="monospace" text-anchor="end">PAC-MAN // CONTRIBUTION BOARD</text>
+</svg>
