@@ -34,31 +34,6 @@
 
 ---
 
-### 📊 GitHub Activity & Core Focus
-
-<p align="center">
-  <a href="https://github.com/adiityakr">
-    <img src="https://github-readme-stats.vercel.app/api?username=adiityakr&show_icons=true&theme=tokyonight&bg_color=0d1117&title_color=38bdf8&text_color=c9d1d9&icon_color=38bdf8&border_color=30363d&rank_icon=github" alt="Aditya's GitHub Stats" />
-  </a>
-</p>
-
-<p align="center">
-  <b>PRIMARY LANGUAGES</b><br/><br/>
-  <a href="https://python.org">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="48" height="48" alt="Python" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://isocpp.org">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" width="48" height="48" alt="C++" />
-  </a>
-</p>
-
-<p align="center">
-  <img src="./assets/pacman.svg" width="100%" alt="Pac-Man Arcade Contribution Board" />
-</p>
-
----
-
 ### 📌 Featured Projects
 
 * **[edgeai-for-beginners](https://github.com/adiityakr/edgeai-for-beginners)** `Jupyter Notebook` / `Python`  
