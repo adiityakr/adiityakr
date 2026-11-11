@@ -32,11 +32,11 @@ jobs:
           weeks = data['data']['user']['contributionsCollection']['contributionCalendar']['weeks']
           total = data['data']['user']['contributionsCollection']['contributionCalendar']['totalContributions']
 
-          c_empty = "#161f2e"
-          c_lvl1  = "#6366f1"
-          c_lvl2  = "#818cf8"
-          c_lvl3  = "#c084fc"
-          c_lvl4  = "#38bdf8"
+          c_empty = "#111827"
+          c_lvl1  = "#818cf8"
+          c_lvl2  = "#a855f7"
+          c_lvl3  = "#e879f9"
+          c_lvl4  = "#22d3ee"
 
           def get_color(count):
               if count == 0: return c_empty
@@ -58,11 +58,11 @@ jobs:
                   cnt = day['contributionCount']
                   color = get_color(cnt)
                   if cnt > 0:
-                      glow = f' filter="drop-shadow(0 0 5px {color})"'
-                      stroke = f' stroke="{color}" stroke-width="0.5"'
+                      glow = f' filter="drop-shadow(0 0 6px {color})"'
+                      stroke = f' stroke="{color}" stroke-width="1"'
                   else:
                       glow = ""
-                      stroke = ' stroke="#1e293b" stroke-width="0.5"'
+                      stroke = ' stroke="#1f2937" stroke-width="0.5"'
                   svg_rects.append(f'<rect x="{x}" y="{y}" width="{sq_size}" height="{sq_size}" rx="2" fill="{color}"{stroke}{glow}><title>{day["date"]}: {cnt} contributions</title></rect>')
 
           rects_str = "\n  ".join(svg_rects)
@@ -81,11 +81,11 @@ jobs:
             {rects_str}
             <g transform="translate(605, 133)" font-family="monospace" font-size="9" fill="#94a3b8">
               <text x="-30" y="8">Less</text>
-              <rect x="0" y="0" width="8" height="8" rx="1.5" fill="{c_empty}" stroke="#1e293b" stroke-width="0.5"/>
-              <rect x="14" y="0" width="8" height="8" rx="1.5" fill="{c_lvl1}" filter="drop-shadow(0 0 3px {c_lvl1})"/>
-              <rect x="28" y="0" width="8" height="8" rx="1.5" fill="{c_lvl2}" filter="drop-shadow(0 0 3px {c_lvl2})"/>
-              <rect x="42" y="0" width="8" height="8" rx="1.5" fill="{c_lvl3}" filter="drop-shadow(0 0 3px {c_lvl3})"/>
-              <rect x="56" y="0" width="8" height="8" rx="1.5" fill="{c_lvl4}" filter="drop-shadow(0 0 3px {c_lvl4})"/>
+              <rect x="0" y="0" width="8" height="8" rx="1.5" fill="{c_empty}" stroke="#1f2937" stroke-width="0.5"/>
+              <rect x="14" y="0" width="8" height="8" rx="1.5" fill="{c_lvl1}" stroke="{c_lvl1}" filter="drop-shadow(0 0 4px {c_lvl1})"/>
+              <rect x="28" y="0" width="8" height="8" rx="1.5" fill="{c_lvl2}" stroke="{c_lvl2}" filter="drop-shadow(0 0 4px {c_lvl2})"/>
+              <rect x="42" y="0" width="8" height="8" rx="1.5" fill="{c_lvl3}" stroke="{c_lvl3}" filter="drop-shadow(0 0 4px {c_lvl3})"/>
+              <rect x="56" y="0" width="8" height="8" rx="1.5" fill="{c_lvl4}" stroke="{c_lvl4}" filter="drop-shadow(0 0 4px {c_lvl4})"/>
               <text x="72" y="8">More</text>
             </g>
           </svg>"""
